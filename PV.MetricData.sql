@@ -3,6 +3,6 @@ CREATE TABLE [PV].[MetricData]
     Id INT PRIMARY KEY,
     [Value] FLOAT,
     MetricId INT NOT NULL,
-    InsertedAt TIMESTAMP,
+    RecordedAt TIMESTAMP,
     FOREIGN KEY (MetricId) REFERENCES [PV].[Metrics](Id)
 );

@@ -66,6 +66,7 @@
     <Build Include="PV.Metrics.sql" />
     <Build Include="PV.sql" />
     <Build Include="PV.Users.sql" />
+    <PostDeploy Include="Post-Deployment\InsertData.sql" />
   </ItemGroup>
   <Target Name="BeforeBuild">
     <Delete Files="$(BaseIntermediateOutputPath)\project.assets.json" />
