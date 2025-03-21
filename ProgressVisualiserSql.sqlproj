@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build">
   <Sdk Name="Microsoft.Build.Sql" Version="0.2.5-preview" />
   <PropertyGroup>
-    <Name>ProgessVisualiserSql</Name>
+    <Name>ProgressVisualiserSql</Name>
     <ProjectGuid>{B34B29B9-6D42-4F03-8F4A-4A8B7BC5666D}</ProjectGuid>
     <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
     <ModelCollation>1033, CI</ModelCollation>

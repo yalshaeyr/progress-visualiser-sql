@@ -5,6 +5,7 @@ An SQL Server repository to store data related to the [progress-visualiser-api](
 1. Create a [Microsoft Entra Application Registration](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#register-an-application-with-microsoft-entra-id-and-create-a-service-principal)
 2. Configure a [Federated Identity Credential](https://learn.microsoft.com/en-us/azure/azure-sql/database/connect-github-actions-sql-db?view=azuresql&tabs=openid#generate-deployment-credentials) on this Application Registration
 3. In your deployment target (Azure SQL Database), assign the SQL Server Contributor role to the created Application Registration.
+- Skipping this step will result in a "No subscriptions found for ***." error during the initial stages of the pipeline.
 4. Set database permissions
 ```SQL
 CREATE USER [app-pv-test] FROM EXTERNAL PROVIDER;
@@ -17,7 +18,8 @@ GRANT SELECT, DELETE, INSERT, ALTER, UPDATE ON [PV].[Metrics] TO [app-pv-test]
 GRANT SELECT, DELETE, INSERT, ALTER, UPDATE ON [PV].[MetricData] TO [app-pv-test]
 GRANT SELECT, DELETE, INSERT, ALTER, UPDATE ON [PV].[Users] TO [app-pv-test]
 ```
-5. Configure a GitHub Environment corresponding to the environment (e.g. DEV, TEST and PROD)
+5. Configure a GitHub Environment corresponding to your desired environments (e.g. DEV, TEST and PROD)
+   - *Please note that repository-level secrets need to be set for when the GitHub Actions pipeline is triggered with no environment selected*
 6. Configure GitHub Secrets
 - **AZURE_CLIENT_ID**:	Application Registration's Client ID (from Step #1)
 - **AZURE_SUBSCRIPTION_ID**:	Application Registration's Subscription ID (from Step #1)
