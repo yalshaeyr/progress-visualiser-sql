@@ -1,6 +1,6 @@
 CREATE TABLE [PV].[Metrics]
 (
-    Id INT PRIMARY KEY,
+    Id INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
     [Name] VARCHAR(255),
     [Description] VARCHAR(255),
     Unit VARCHAR(255),
