@@ -4,7 +4,7 @@ CREATE TABLE [PV].[Metrics]
     [Name] VARCHAR(255),
     [Description] VARCHAR(255),
     Unit VARCHAR(255),
-    CreatedAt TIMESTAMP,
+    CreatedAt DATETIMEOFFSET,
     UserId INT NOT NULL,
     CONSTRAINT FK_Metrics_User FOREIGN KEY (UserId) REFERENCES [PV].[Users](Id)
 );
