@@ -4,5 +4,5 @@ CREATE TABLE [PV].[MetricData]
     [Value] FLOAT,
     MetricId INT NOT NULL,
     RecordedAt TIMESTAMP,
-    FOREIGN KEY (MetricId) REFERENCES [PV].[Metrics](Id)
+    CONSTRAINT FK_MetricData_Metric FOREIGN KEY (MetricId) REFERENCES [PV].[Metrics](Id)
 );
