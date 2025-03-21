@@ -1,6 +1,12 @@
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
+    inputs: # allow manual trigger
+      environment:
+        type: environment
+        description: 'Environment to deploy to'
+        required: true
 
 permissions:
       id-token: write
@@ -8,7 +14,7 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v4 # get repo
     - uses: azure/login@v2 # log into Azure with managed identity
