@@ -1,6 +1,6 @@
 CREATE TABLE [PV].[Users]
 (
-    Id INT PRIMARY KEY,
+    Id INT IDENTITY(1, 1) PRIMARY KEY NOT NULL,
     Username VARCHAR(255),
-    CreatedAt TIMESTAMP
+    CreatedAt DATETIMEOFFSET
 );
