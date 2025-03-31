@@ -15,11 +15,6 @@ CREATE USER [sp-pv-test] FROM EXTERNAL PROVIDER;
 -- See https://learn.microsoft.com/en-us/sql/relational-databases/security/authentication-access/database-level-roles?view=sql-server-ver16
 ALTER ROLE [db_owner]
 ADD MEMBER [sp-pv-test];
-
--- After initial deployment (as prior to this, these tables do not exist)
-GRANT SELECT, DELETE, INSERT, ALTER, UPDATE ON [PV].[Metrics] TO [sp-pv-test]
-GRANT SELECT, DELETE, INSERT, ALTER, UPDATE ON [PV].[MetricData] TO [sp-pv-test]
-GRANT SELECT, DELETE, INSERT, ALTER, UPDATE ON [PV].[Users] TO [sp-pv-test]
 ```
 3. Configure a GitHub Environment corresponding to your desired environments (e.g. DEV, TEST and PROD)
    - *Please note that repository-level secrets need to be set for when the GitHub Actions pipeline is triggered with no environment selected*

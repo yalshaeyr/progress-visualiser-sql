@@ -1,21 +1,39 @@
--- Insert a user
-INSERT INTO [PV].[Users] ([Id], Username, CreatedAt)
-VALUES (1, 'Jane Doe', CURRENT_TIMESTAMP);
+-- Merge user
+MERGE INTO [PV].[Users] AS Target
+USING (VALUES ('Jane Doe')) AS Source (Username)
+ON Target.Username = Source.Username
+WHEN NOT MATCHED THEN
+    INSERT (Username, CreatedAt)
+    VALUES (Source.Username, CURRENT_TIMESTAMP);
 
--- Insert two metrics
-INSERT INTO [PV].[Metrics] ([Id], [Name], [Description], CreatedAt, UserId)
-VALUES (1, 'Hours Worked', 'Total hours worked in a day', CURRENT_TIMESTAMP, 1),
-       (2, 'Hours Exercised', 'Total hours exercised in a day', CURRENT_TIMESTAMP, 1);
+-- Merge metrics
+MERGE INTO [PV].[Metrics] AS Target
+USING (
+    VALUES 
+        ('Work', 'Total hours worked in a day', 'Hours', 1),
+        ('Exercise', 'Total hours exercised in a day', 'Hours', 1)
+) AS Source ([Name], [Description], [Unit], UserId)
+ON Target.[Name] = Source.[Name] AND Target.UserId = Source.UserId
+WHEN NOT MATCHED THEN
+    INSERT ([Name], [Description], [Unit], CreatedAt, UserId)
+    VALUES (Source.[Name], Source.[Description], Source.[Unit], CURRENT_TIMESTAMP, Source.UserId);
 
--- Insert at least 10 records for MetricData
-INSERT INTO [PV].[MetricData] ([Id], [Value], MetricId, RecordedAt)
-VALUES (1, 8.0, 1, '2024-01-01 08:00:00'),
-       (2, 7.5, 1, '2024-01-02 08:00:00'),
-       (3, 9.0, 1, '2024-01-03 08:00:00'),
-       (4, 8.5, 1, '2024-01-04 08:00:00'),
-       (5, 7.0, 1, '2024-01-05 08:00:00'),
-       (6, 1.0, 2, '2024-01-01 08:00:00'),
-       (7, 1.5, 2, '2024-01-02 08:00:00'),
-       (8, 2.0, 2, '2024-01-03 08:00:00'),
-       (9, 1.0, 2, '2024-01-04 08:00:00'),
-       (10, 1.5, 2, '2024-01-05 08:00:00');
+-- Merge metric data
+MERGE INTO [PV].[MetricData] AS Target
+USING (
+    VALUES 
+        (8.0, 1, '2024-01-01 08:00:00'),
+        (7.5, 1, '2024-01-02 08:00:00'),
+        (9.0, 1, '2024-01-03 08:00:00'),
+        (8.5, 1, '2024-01-04 08:00:00'),
+        (7.0, 1, '2024-01-05 08:00:00'),
+        (1.0, 2, '2024-01-01 08:00:00'),
+        (1.5, 2, '2024-01-02 08:00:00'),
+        (2.0, 2, '2024-01-03 08:00:00'),
+        (1.0, 2, '2024-01-04 08:00:00'),
+        (1.5, 2, '2024-01-05 08:00:00')
+) AS Source ([Value], MetricId, RecordedAt)
+ON Target.MetricId = Source.MetricId AND Target.RecordedAt = Source.RecordedAt
+WHEN NOT MATCHED THEN
+    INSERT ([Value], MetricId, RecordedAt)
+    VALUES (Source.[Value], Source.MetricId, Source.RecordedAt);

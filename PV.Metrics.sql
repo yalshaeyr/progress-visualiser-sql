@@ -6,5 +6,6 @@ CREATE TABLE [PV].[Metrics]
     Unit VARCHAR(255),
     CreatedAt DATETIMEOFFSET,
     UserId INT NOT NULL,
-    CONSTRAINT FK_Metrics_User FOREIGN KEY (UserId) REFERENCES [PV].[Users](Id)
+    CONSTRAINT FK_Metrics_User FOREIGN KEY (UserId) REFERENCES [PV].[Users](Id),
+    CONSTRAINT UQ_Metrics_Name UNIQUE ([Name])
 );
